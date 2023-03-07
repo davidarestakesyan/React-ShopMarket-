@@ -1,10 +1,17 @@
 import { Link } from "react-router-dom";
-import { productsData } from "./Product";
-import { useState } from "react";
+// import { productsData } from "./Product";
+import { useState,useEffect } from "react";
 
-console.log(productsData);
+// console.log(productsData);
 export default function Main({addToCard}) {
   const [input, setInput] = useState('');
+  const [shoes,setshoes] = useState([]);
+useEffect(()=> {
+  fetch("http://localhost:3000")
+  .then(res =>res.json())
+  .then (data=>setshoes(data))
+} ,[])
+
   // const [buttonColors, setButtonColors] = useState({});
 
   // const handleClick = (id) => {
@@ -22,7 +29,7 @@ export default function Main({addToCard}) {
          <div className="inpp">
       <input className="inp" onChange={(e) => setInput(e.target.value)} />
           </div>  
-      {productsData.filter((el) => el.name.toLowerCase().includes(input.toLowerCase())).map((el) => {
+      {shoes.filter((el) => el.name.toLowerCase().includes(input.toLowerCase())).map((el) => {
         return (
           <div key={el.id} className=''>
             <div className="card">
@@ -43,8 +50,7 @@ export default function Main({addToCard}) {
     </div>
   )
 }
-localStorage.setItem("person",JSON.stringify());
-localStorage.getItem("person")
+
 
 
 
